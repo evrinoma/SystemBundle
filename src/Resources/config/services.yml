@@ -1,0 +1,9 @@
+services:
+  evrinoma.shell:
+    class: Evrinoma\ShellBundle\Core\Shell
+
+  Evrinoma\ShellBundle\Core\Shell:
+    alias: evrinoma.shell
+    public: true
+    deprecated:
+
