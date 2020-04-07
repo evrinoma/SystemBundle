@@ -20,16 +20,14 @@ class Shell implements ShellInterface
      * @var
      */
     protected $result;
-
-    /**
-     * @var array
-     */
-    private $paths = ['/bin', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin', '/usr/local/sbin'];
-
     /**
      * @var array
      */
     protected $programs = [];
+    /**
+     * @var array
+     */
+    private $paths = ['/bin', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin', '/usr/local/sbin'];
 //endregion Fields
 
 //region SECTION: Protected
@@ -146,9 +144,32 @@ class Shell implements ShellInterface
     {
         return explode("\n", $this->getResult());
     }
+
+    /**
+     * Got to exit, if executable program have't a valid path
+     *
+     * @param string $programName
+     *
+     * @return bool
+     */
+    public function hasProgram(string $programName): bool
+    {
+        return (array_key_exists($programName, $this->programs) && $this->programs[$programName] !== '');
+    }
+
+    public function toUtf8size(): array
+    {
+        $encode = [];
+
+        foreach ($this->result as $item) {
+            $encode[] = utf8_encode($item);
+        }
+
+        return $encode;
+    }
 //endregion Public
 
-//region SECTION: Find Filters Repository
+//region SECTION: Private
     /**
      * @param $program
      *
@@ -168,20 +189,9 @@ class Shell implements ShellInterface
 
         return null;
     }
+//endregion Private
 
-
-    /**
-     * Got to exit, if executable program have't a valid path
-     *
-     * @param string $programName
-     *
-     * @return bool
-     */
-    public function hasProgram(string $programName): bool
-    {
-        return (array_key_exists($programName, $this->programs) && $this->programs[$programName]!=='') ;
-    }
-
+//region SECTION: Getters/Setters
     /**
      * @param string $programName
      *
@@ -197,11 +207,9 @@ class Shell implements ShellInterface
             throw new \Exception('Shell program ['.$programName.'] does\'t exist');
         }
 
-        return  $this->programs[$programName];
+        return $this->programs[$programName];
     }
-//endregion Find Filters Repository
 
-//region SECTION: Getters/Setters
     /**
      * @return mixed
      */

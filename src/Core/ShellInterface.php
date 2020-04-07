@@ -13,6 +13,8 @@ interface ShellInterface
 
     public function toArrayString(): array;
 
+    public function toUtf8Size(): array;
+
     public function hasProgram(string $programName): bool;
 //endregion Public
 
