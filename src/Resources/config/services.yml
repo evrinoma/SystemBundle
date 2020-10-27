@@ -5,5 +5,3 @@ services:
   Evrinoma\ShellBundle\Core\Shell:
     alias: evrinoma.shell
     public: true
-    deprecated:
-
