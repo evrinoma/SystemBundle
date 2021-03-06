@@ -3,11 +3,11 @@
 
 namespace Evrinoma\ShellBundle\DependencyInjection;
 
+use Evrinoma\ShellBundle\EvrinomaShellBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class EvrinomaShellBundleExtension
@@ -27,7 +27,7 @@ class EvrinomaShellBundleExtension extends Extension
 //region SECTION: Getters/Setters
     public function getAlias()
     {
-        return 'shell';
+        return EvrinomaShellBundle::SHELL_BUNDLE;
     }
 //endregion Getters/Setters
 }
