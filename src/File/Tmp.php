@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the package.
+ *
+ * (c) Nikolay Nikolaev <evrinoma@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Evrinoma\SystemBundle\File;
 
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
@@ -22,18 +31,18 @@ final class Tmp
     public function __construct(string $name, string $folderName = null, bool $clean = true, bool $typeTemp = false)
     {
         $this->name = $name;
-        $this->path = sys_get_temp_dir() . ((null === $folderName) ? '' : DIRECTORY_SEPARATOR . $folderName);
+        $this->path = sys_get_temp_dir().((null === $folderName) ? '' : \DIRECTORY_SEPARATOR.$folderName);
         $filesystem = new Filesystem();
         if (!$filesystem->exists($this->path)) {
             try {
                 $filesystem->mkdir(Path::normalize($this->path));
             } catch (IOExceptionInterface $exception) {
-                throw new \Exception('An error occurred while creating your directory at ' . $exception->getPath());
+                throw new \Exception('An error occurred while creating your directory at '.$exception->getPath());
             }
         }
 
         $this->file = ($typeTemp)
-            ? tempnam($this->path, $name) : $this->path . DIRECTORY_SEPARATOR . $name;
+            ? tempnam($this->path, $name) : $this->path.\DIRECTORY_SEPARATOR.$name;
 
         if ($typeTemp) {
             if (false === $this->file) {
@@ -54,7 +63,7 @@ final class Tmp
             $finder->hasResults();
             $files = [];
             foreach ($finder as $dir) {
-                $files[]=$dir->getRealPath();
+                $files[] = $dir->getRealPath();
             }
             foreach ($files as $dir) {
                 $this->rm($dir);
@@ -70,9 +79,9 @@ final class Tmp
             if (is_dir($path)) {
                 $handle = opendir($path);
                 while (false !== ($entry = readdir($handle))) {
-                    if ($entry != "." && $entry != "..") {
-                        if (file_exists($path.DIRECTORY_SEPARATOR.$entry)) {
-                            unlink($path.DIRECTORY_SEPARATOR.$entry);
+                    if ('.' != $entry && '..' != $entry) {
+                        if (file_exists($path.\DIRECTORY_SEPARATOR.$entry)) {
+                            unlink($path.\DIRECTORY_SEPARATOR.$entry);
                         }
                     }
                 }
@@ -92,7 +101,7 @@ final class Tmp
                 if (is_dir($path)) {
                     $handle = opendir($path);
                     while (false !== ($entry = readdir($handle))) {
-                        if ($entry != "." && $entry != "..") {
+                        if ('.' != $entry && '..' != $entry) {
                             closedir($handle);
 
                             return;
