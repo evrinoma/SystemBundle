@@ -1,17 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nikolns
- * Date: 8/16/19
- * Time: 1:30 PM
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the package.
+ *
+ * (c) Nikolay Nikolaev <evrinoma@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Evrinoma\ShellBundle\Core;
 
-
 class Shell implements ShellInterface
 {
-//region SECTION: Fields
     /**
      * @var
      */
@@ -28,12 +31,7 @@ class Shell implements ShellInterface
      * @var array
      */
     private $paths = ['/bin', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin', '/usr/local/sbin'];
-//endregion Fields
 
-//region SECTION: Protected
-//endregion Protected
-
-//region SECTION: Public
     /**
      * @param      $strFileName
      * @param int  $intLines
@@ -51,10 +49,10 @@ class Shell implements ShellInterface
             if ($fd = fopen($strFileName, 'r')) {
                 while (!feof($fd)) {
                     $this->result .= fgets($fd, $intBytes);
-                    if ($intLines <= $intCurLine && $intLines !== 0) {
+                    if ($intLines <= $intCurLine && 0 !== $intLines) {
                         break;
                     } else {
-                        $intCurLine++;
+                        ++$intCurLine;
                     }
                 }
                 fclose($fd);
@@ -87,7 +85,7 @@ class Shell implements ShellInterface
     {
         $this->setClean();
 
-        $buffer  = '';
+        $buffer = '';
         $program = $this->findProgram($programName);
 
         if (!$program) {
@@ -101,12 +99,12 @@ class Shell implements ShellInterface
         // see if we've gotten a |, if we have we need to do patch checking on the cmd
         if ($args) {
             $args_list = preg_split('/\s/', $args);
-            $max       = count($args_list);
-            for ($i = 0; $i < $max; $i++) {
-                if ($args_list[$i] === '|') {
-                    $cmd     = $args_list[$i + 1];
+            $max = \count($args_list);
+            for ($i = 0; $i < $max; ++$i) {
+                if ('|' === $args_list[$i]) {
+                    $cmd = $args_list[$i + 1];
                     $new_cmd = $this->findProgram($cmd);
-                    $args    = preg_replace("/\| $cmd/", "| $new_cmd", $args);
+                    $args = preg_replace("/\| $cmd/", "| $new_cmd", $args);
                 }
             }
         }
@@ -146,7 +144,7 @@ class Shell implements ShellInterface
     }
 
     /**
-     * Got to exit, if executable program have't a valid path
+     * Got to exit, if executable program have't a valid path.
      *
      * @param string $programName
      *
@@ -154,7 +152,7 @@ class Shell implements ShellInterface
      */
     public function hasProgram(string $programName): bool
     {
-        return (array_key_exists($programName, $this->programs) && $this->programs[$programName] !== '');
+        return \array_key_exists($programName, $this->programs) && '' !== $this->programs[$programName];
     }
 
     public function toUtf8size(): array
@@ -167,9 +165,7 @@ class Shell implements ShellInterface
 
         return $encode;
     }
-//endregion Public
 
-//region SECTION: Private
     /**
      * @param $program
      *
@@ -178,7 +174,7 @@ class Shell implements ShellInterface
     private function findProgram($program): ?string
     {
         reset($this->paths);
-        if (function_exists('is_executable')) {
+        if (\function_exists('is_executable')) {
             while ($this_path = current($this->paths)) {
                 if (is_executable("$this_path/$program")) {
                     return "$this_path/$program";
@@ -189,13 +185,12 @@ class Shell implements ShellInterface
 
         return null;
     }
-//endregion Private
 
-//region SECTION: Getters/Setters
     /**
      * @param string $programName
      *
      * @return string
+     *
      * @throws \Exception
      */
     public function getProgram(string $programName): string
@@ -232,9 +227,8 @@ class Shell implements ShellInterface
     public function setClean(): ShellInterface
     {
         $this->result = '';
-        $this->error  = '';
+        $this->error = '';
 
         return $this;
     }
-//endregion Getters/Setters
 }

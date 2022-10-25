@@ -22,5 +22,8 @@
         "exclude-from-classmap": [
             "/Tests/"
         ]
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.12"
     }
 }
