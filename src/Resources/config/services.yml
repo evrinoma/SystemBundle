@@ -1,7 +1,11 @@
 services:
-  evrinoma.shell:
-    class: Evrinoma\ShellBundle\Core\Shell
+  evrinoma.system.shell:
+    class: Evrinoma\SystemBundle\Shell\Shell
 
-  Evrinoma\ShellBundle\Core\Shell:
-    alias: evrinoma.shell
+  Evrinoma\SystemBundle\Shell\Shell:
+    alias: evrinoma.system.shell
+    public: true
+
+  Evrinoma\SystemBundle\Shell\ShellInterface:
+    alias: evrinoma.system.shell
     public: true

@@ -11,19 +11,19 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Evrinoma\ShellBundle;
+namespace Evrinoma\SystemBundle;
 
-use Evrinoma\ShellBundle\DependencyInjection\EvrinomaShellBundleExtension;
+use Evrinoma\SystemBundle\DependencyInjection\EvrinomaSystemBundleExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class EvrinomaShellBundle extends Bundle
+class EvrinomaSystemBundle extends Bundle
 {
     public const SHELL_BUNDLE = 'shell';
 
     public function getContainerExtension()
     {
         if (null === $this->extension) {
-            $this->extension = new EvrinomaShellBundleExtension();
+            $this->extension = new EvrinomaSystemBundleExtension();
         }
 
         return $this->extension;

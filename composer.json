@@ -1,8 +1,9 @@
 {
-    "name": "evrinoma/shell-bundle",
-    "description": "Shell",
+    "name": "evrinoma/system-bundle",
+    "description": "System",
     "keywords": [
-        "Shell"
+        "Shell",
+        "System"
     ],
     "type": "symfony-bundle",
     "license": "MIT",
@@ -17,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Evrinoma\\ShellBundle\\": "src/"
+            "Evrinoma\\SystemBundle\\": "src/"
         },
         "exclude-from-classmap": [
             "/Tests/"

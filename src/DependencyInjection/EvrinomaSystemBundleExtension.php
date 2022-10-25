@@ -11,18 +11,18 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Evrinoma\ShellBundle\DependencyInjection;
+namespace Evrinoma\SystemBundle\DependencyInjection;
 
-use Evrinoma\ShellBundle\EvrinomaShellBundle;
+use Evrinoma\SystemBundle\EvrinomaSystemBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * Class EvrinomaShellBundleExtension.
+ * Class EvrinomaSystemBundleExtension.
  */
-class EvrinomaShellBundleExtension extends Extension
+class EvrinomaSystemBundleExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -32,6 +32,6 @@ class EvrinomaShellBundleExtension extends Extension
 
     public function getAlias()
     {
-        return EvrinomaShellBundle::SHELL_BUNDLE;
+        return EvrinomaSystemBundle::SHELL_BUNDLE;
     }
 }
