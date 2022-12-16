@@ -39,5 +39,4 @@ vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php
 ## Done
 
 ## License
-
     PROPRIETARY
