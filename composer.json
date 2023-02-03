@@ -24,7 +24,34 @@
             "/Tests/"
         ]
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.12"
+        "friendsofphp/php-cs-fixer": "^3.12",
+        "symfony/dotenv": "5.2.*",
+        "evrinoma/hooks-bundle": "dev-master"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "hooks": "vendor/bin/hooks evrinoma:hooks:create"
+        },
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "pre-package-uninstall": ["vendor/bin/hooks evrinoma:hooks:delete", "true"]
+    },
+    "repositories": {
+        "hooks": {
+            "type": "vcs",
+            "url": "https://github.com/evrinoma/HooksBundle.git"
+        },
+        "dto": {
+            "type": "vcs",
+            "url": "https://github.com/evrinoma/DtoBundle.git"
+        },
+        "utils": {
+            "type": "vcs",
+            "url": "https://github.com/evrinoma/UtilsBundle.git"
+        }
     }
 }
