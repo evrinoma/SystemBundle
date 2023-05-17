@@ -52,7 +52,7 @@ class Shell implements ShellInterface
                     if ($intLines <= $intCurLine && 0 !== $intLines) {
                         break;
                     } else {
-                        ++$intCurLine;
+                        $intCurLine++;
                     }
                 }
                 fclose($fd);
@@ -100,7 +100,7 @@ class Shell implements ShellInterface
         if ($args) {
             $args_list = preg_split('/\s/', $args);
             $max = \count($args_list);
-            for ($i = 0; $i < $max; ++$i) {
+            for ($i = 0; $i < $max; $i++) {
                 if ('|' === $args_list[$i]) {
                     $cmd = $args_list[$i + 1];
                     $new_cmd = $this->findProgram($cmd);
